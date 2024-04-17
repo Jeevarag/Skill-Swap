@@ -901,7 +901,7 @@ def pay_razor(request):
 
         # Create a Razorpay order
         client = razorpay.Client(
-            auth=("rzp_test_4xk0xz87l8Atss", "7zBFnTLQvHPXVUseIuZbB1lq"))
+            auth=("", ""))
 
         order = client.order.create({
             'amount': amount,

@@ -495,8 +495,7 @@ def accept_collab_request(request, request_id):
 
         Notification.objects.create(
             recipient=collab_request.sender,
-            message=f"Your Collab request has been rejected by {
-                request.user.username}."
+            message=f"Your Collab request has been rejected by {request.user.username}."
         )
         # Redirect to a form for scheduling the session
         return redirect('schedule_collab', request_id=collab_request.id)
@@ -511,8 +510,7 @@ def reject_collab_request(request, request_id):
 
         Notification.objects.create(
             recipient=collab_request.sender,
-            message=f"Your Collab request has been rejected by {
-                request.user.username}."
+            message=f"Your Collab request has been rejected by {request.user.username}."
         )
         # Redirect to a success page or user profile
         return redirect('profile', username=request.user.username)
@@ -548,8 +546,7 @@ def schedule_collab(request, request_id):
 
             Notification.objects.create(
                 recipient=collab_request.sender,
-                message=f"Collab scheduled with {
-                    request.user.username} on {date_and_time}."
+                message=f"Collab scheduled with {request.user.username} on {date_and_time}."
             )
 
             messages.success(request, 'Collab session scheduled successfully!')

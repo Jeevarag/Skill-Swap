@@ -446,8 +446,7 @@ def accept_skill_request(request, request_id):
 
         Notification.objects.create(
             recipient=skill_request.sender,
-            message=f"Your skill request has been accepted by {
-                request.user.username}."
+            message=f"Your skill request has been accepted by {request.user.username}."
         )
 
         # Redirect to a form for scheduling the session

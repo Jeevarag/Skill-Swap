@@ -462,8 +462,7 @@ def reject_skill_request(request, request_id):
 
         Notification.objects.create(
             recipient=skill_request.sender,
-            message=f"Your skill request has been rejected by {
-                request.user.username}."
+            message=f"Your skill request has been rejected by {request.user.username}."
         )
         # Redirect to a success page or user profile
         return redirect('profile', username=request.user.username)

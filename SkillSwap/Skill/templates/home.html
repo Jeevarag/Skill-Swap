@@ -1,0 +1,399 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Homepage</title>
+    <!-- Include the Montserrat font from Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@300;400;500&display=swap" rel="stylesheet"
+    />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.3.0/css/all.min.css"
+    />
+    <style>
+      body,
+      h1,
+      h2,
+      h3,
+      p,
+      ul,
+      li {
+        margin: 0;
+        padding: 0;
+      }
+
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #dbe9f6;
+      }
+
+      header {
+        background-color: #f0f5f9;
+        color: #5c5c5c;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #5c5c5c;
+        margin: 0 20px;
+      }
+
+      .user-info {
+        display: flex;
+        align-items: center;
+      }
+
+      .user-info p {
+        margin-right: 10px;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        background-color: #80a4c2;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        text-decoration: none;
+        transition: background-color 0.3s;
+      }
+
+      .btn:hover {
+        background-color: #658da9;
+      }
+
+      .hero {
+        background-size: cover;
+        text-align: center;
+        padding: 50px 0;
+        color: #5c5c5c;
+      }
+
+      .hero h1 {
+        font-size: 36px;
+        margin-bottom: 20px;
+      }
+
+      .user-profile {
+        background-size: cover;
+        text-align: left;
+        padding: 100px 100px;
+        color: #5c5c5c;
+      }
+
+      .action-containers {
+        display: flex;
+        justify-content: center;
+        margin-top: 20px;
+      }
+
+      .action-container {
+        flex: 1;
+        background-size: cover;
+        text-align: center;
+        padding: 50px 0;
+        color: #5c5c5c;
+        transition: transform 0.3s, box-shadow 0.3s, background-color 0.3s;
+        cursor: pointer;
+        text-decoration: none;
+        /* margin: 20px; */
+        margin-bottom: 50px;
+        margin-left: 40px;
+        margin-right: 40px;
+        margin-top: 5px;
+        border-radius: 20px; /* Rounded edges */
+        min-height: 450px; /* Adjust the height as needed */
+        width: 300px;
+      }
+      .search-form {
+        display: flex;
+        align-items: center;
+      }
+
+      /* Style for the search input */
+      .search-input {
+        padding: 8px;
+        border: 1px solid #ccc;
+        border-radius: 10px 0px 0px 10px;
+        margin-right: 5px;
+      }
+
+      /* Style for the search button */
+      .search-button {
+        padding: 8px 15px;
+        border: none;
+        border-radius: 0px 10px 10px 0px;
+        background-color: #80a4c2;
+        color: #fff;
+        cursor: pointer;
+      }
+
+      .action-container:hover {
+        transform: scale(1.1); /* Grow on hover */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      }
+
+      .learn-container {
+        background-image: url("{% static 'Images/Study.jpg' %}");
+      }
+
+      .teach-container {
+        background-image: url("{% static 'Images/teach.jpg' %}");
+      }
+
+      .action-container span {
+        font-size: 24px;
+        display: block;
+      }
+
+      footer {
+        background-color: #f0f5f9;
+        color: #5c5c5c;
+        text-align: center;
+        padding: 10px 0;
+        width: 100%;
+        bottom: 0;
+      }
+
+      .notification-container {
+          position: relative;
+      }
+
+      #notification-bell {
+          font-size: 24px; /* Adjust the font size as needed */
+          cursor: pointer;
+      }
+
+      #notification-dropdown {
+          position: absolute;
+          top: 30px;
+          right: 0;
+          background-color: #fff;
+          box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+          border-radius: 5px;
+          padding: 10px;
+          z-index: 2;
+          display: none;
+          width: 300px;
+          transition: max-height 0.3s ease-in-out; /* Added transition property */
+          max-height: 300px; /* Set a larger max-height value */
+          overflow: hidden; /* Hide overflow content */
+      }
+
+      #notification-list {
+          list-style: none;
+          padding: 0;
+          margin-bottom: 10px;
+      }
+
+      .notification-message {
+          font-size: 14px;
+      }
+
+      .mark-as-read {
+          background-color: #80a4c2;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          padding: 5px;
+          cursor: pointer;
+          transition: background-color 0.3s;
+          margin-left: 5px;
+      }
+
+      .mark-as-read:hover {
+          background-color: #658da9;
+      }
+
+      #clear-all {
+          display: block;
+          width: 100%;
+          padding: 10px;
+          background-color: #80a4c2;
+          color: #fff;
+          border: none;
+          border-radius: 5px;
+          text-decoration: none;
+          transition: background-color 0.3s;
+          cursor: pointer;
+      }
+
+      #clear-all:hover {
+          background-color: #658da9;
+      }
+
+      .notification-divider {
+          border: 0.5px solid #ccc;
+          margin: 5px 0;
+      }
+
+      /* Add a class for the expanded state */
+      #notification-dropdown.expanded {
+          max-height: 200px; /* Set the desired expanded height */
+      }
+
+      /* Define the slide-in animation */
+      @keyframes slideIn {
+        0% {
+          transform: scaleY(0);
+        }
+        100% {
+          transform: scaleY(1);
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <nav>
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'about_us' %}">About</a></li>
+          <li><a id="my_profile" href="{% url 'profile' %}">My profile</a></li>
+          <li><a href="{% url 'contact' %}">Contact</a></li>
+          <li><a href="{% url 'buy_skillpoints' %}">SkillPoints</a></li>
+        </ul>
+      </nav>
+      <div class="notification-container">
+        <i id="notification-bell" class="fas fa-bell"></i>
+        <div id="notification-dropdown" style="display: none">
+            <ul id="notification-list">
+                {% for notification in notifications %}
+                    <li>
+                        <span class="notification-message">{{ notification.message }}</span>
+                    </li>
+                    <hr class="notification-divider">
+                {% endfor %}
+            </ul>
+            
+            {% if notifications %}
+                <form method="post" action="{% url 'clear_all_notifications' %}">
+                    {% csrf_token %}
+                    <button type="submit" id="clear-all">Clear All</button>
+                </form>
+            {% else %}
+                <p>No new notifications</p>
+            {% endif %}
+        </div>
+    </div>
+      <div class="search-bar">
+        <form
+          action="{% url 'search_users' %}"
+          method="GET"
+          class="search-form"
+        >
+          <input
+            type="text"
+            name="query"
+            placeholder="Search users..."
+            id="search_user"
+            class="search-input"
+          />
+          <button type="submit" class="btn btn-primary search-button">
+            Search
+          </button>
+        </form>
+      </div>
+      <div class="user-info">
+        {% if user.profile_picture %}
+        <div
+          class="profile-picture"
+          style="background-image: url('{{ user.profile_picture.url }}'); width:50px; height:50px; border-radius: 50%; background-size: cover;"
+        ></div>
+        {% else %}
+        <div
+          class="profile-picture"
+          style="
+            background-image: url('/static/Images/profile.jpg');
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background-size: cover;
+          "
+        ></div>
+        {% endif %}
+        &nbsp;&nbsp;&nbsp;
+        <p>{{ user.username }}</p>
+        <a href="{% url 'logout' %}" class="btn btn-primary" id="logout-link">Logout</a>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-content">
+        <h1>Welcome to SkillSwap</h1>
+        <div class="action-containers">
+          <a id="teach" href="{% url 'learn' %}" class="action-container learn-container">
+            <span>Learn</span>
+          </a>
+          <a id="learn" href="{% url 'teach' %}" class="action-container teach-container">
+            <span>Teach</span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <footer>
+      <p>&copy; 2023 SkillSwap. All rights reserved.</p>
+    </footer>
+    <script>
+      document.addEventListener("DOMContentLoaded", function () {
+          var notificationBell = document.getElementById("notification-bell");
+          var notificationDropdown = document.getElementById("notification-dropdown");
+
+          // Initially, assume there are no new notifications
+          var hasNewNotifications = false;
+
+          // Fetch the initial state of notifications from the server using AJAX
+          fetch("/get_notification_status")
+              .then(response => response.json())
+              .then(data => {
+                  // Update hasNewNotifications based on the fetched data
+                  hasNewNotifications = data.hasNewNotifications;
+
+                  // Update the icon based on the presence of new notifications
+                  updateNotificationIcon(hasNewNotifications);
+              });
+
+          notificationBell.addEventListener("click", function () {
+              // Toggle the display of the notification dropdown
+              notificationDropdown.style.display = notificationDropdown.style.display === "none" ? "block" : "none";
+
+              // If the dropdown is displayed, consider notifications as read and update the icon
+              if (notificationDropdown.style.display === "block") {
+                  hasNewNotifications = false;
+                  updateNotificationIcon(hasNewNotifications);
+              }
+          });
+      });
+
+      function updateNotificationIcon(hasNewNotifications) {
+          var notificationBell = document.getElementById("notification-bell");
+
+          // Assuming you have separate classes for filled and empty icons (adjust accordingly)
+          var filledIconClass = "fas fa-bell"; // Replace with the class for a filled bell icon
+          var emptyIconClass = "far fa-bell"; // Replace with the class for an empty bell icon
+
+          // Update the icon class based on the presence of new notifications
+          notificationBell.className = hasNewNotifications ? filledIconClass : emptyIconClass;
+      }
+      </script>
+      <script>
+      // Function to refresh the page every 10 seconds
+      setInterval(function () {
+        location.reload();
+      }, 5000); // Adjust the time interval as needed (in milliseconds)
+      document.getElementById("message-container").scrollTop =
+        document.getElementById("message-container").scrollHeight;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,42 @@
+<!-- payment.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Razorpay Payment</title>
+    <!-- Include Razorpay JavaScript library -->
+    <script src="https://checkout.razorpay.com/v1/checkout.js"></script>
+</head>
+<body>
+    <h2>Make a Payment</h2>
+
+    <!-- Display order details and initiate Razorpay checkout on page load -->
+    <script>
+        var options = {
+        key: "rzp_test_4xk0xz87l8Atss",
+        amount: "{{ points_plan|default:0 }}00",  <!-- Multiply points_plan by 100 in the template -->
+        currency: "INR",
+        name: "Acme Corp",
+        description: "Payment for Skill Points",
+        order_id: "{{ order_id }}",
+        handler: function(response) {
+            // Handle the Razorpay response, usually send it to the server for verification
+            // This could involve making an AJAX request to your server
+            console.log(response);
+
+            // Perform client-side redirection
+            window.location.href = "/payment_view/";
+        },
+        prefill: {
+            name: "Gaurav Kumar",
+            email: "gaurav.kumar@example.com",
+        }
+    };
+
+        var rzp1 = new Razorpay(options);
+        rzp1.open();
+    </script>
+</body>
+</html>

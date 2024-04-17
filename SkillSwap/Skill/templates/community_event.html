@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Community Dashboard</title>
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+    <style>
+      body {
+        font-family: "Montserrat", sans-serif;
+        background-color: #dbe9f6;
+        margin: 0;
+        padding: 0;
+        position: relative;
+        min-height: 100vh;
+        padding-top: 80px; /* Add padding-top to make space for the header */
+      }
+
+      header {
+        background-color: #f0f5f9;
+        color: #5c5c5c;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 10px 20px;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        z-index: 1000; /* Ensure the header stays above other elements */
+      }
+
+      h1 {
+        font-size: 24px;
+        font-weight: bold;
+        margin: 0;
+      }
+
+      nav ul {
+        list-style: none;
+        display: flex;
+        align-items: center;
+      }
+
+      nav a {
+        text-decoration: none;
+        color: #5c5c5c;
+        margin: 0 20px;
+      }
+
+      .container {
+        display: flex;
+        justify-content: space-between;
+        padding: 20px;
+        margin-top: 100px; /* Adjust based on header height */
+      }
+
+      .sidebar {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 250px;
+        margin-top: 96px;
+        height: 100%;
+        background-color: #34495e;
+        padding-top: 60px; /* Adjust based on header height */
+        color: #fff;
+      }
+
+      .sidebar ul {
+        padding: 0;
+        margin: 0;
+        list-style: none;
+      }
+
+      .sidebar li {
+        padding: 10px 20px;
+        border-bottom: 1px solid #2c3e50;
+      }
+
+      .sidebar li a {
+        color: #fff;
+        text-decoration: none;
+        display: block;
+      }
+
+      .main-content {
+        flex: 1;
+        padding-left: 20px;
+        position: fixed;
+        top: 105px;
+        left: 250px; /* Adjust based on sidebar width */
+        right: 20px;
+        bottom: 0;
+        overflow-y: auto; /* Enable vertical scrolling if content exceeds viewport height */
+      }
+
+      .card {
+        border-radius: 10px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        padding: 20px;
+        width: 80%;
+      }
+
+      .card-header {
+        background-color: #80a4c2;
+        color: #fff;
+        padding: 15px;
+        border-radius: 10px 10px 0 0;
+      }
+
+      .card-title {
+        font-size: 24px;
+        margin: 0;
+      }
+
+      .card-content {
+        padding: 20px;
+      }
+
+      .members-container {
+        width: 250px; /* Adjust based on the desired width */
+        height: 85%; /* Take full height of the container */
+        background-color: #ffffff; /* Example background color */
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Example box shadow */
+        padding: 20px; /* Example padding */
+        position: fixed;
+        border-radius: 10px;
+        top: 105px; /* Adjust based on header height */
+        right: 20px; /* Adjust based on the desired spacing from the main content */
+        /*overflow-y: auto; /* Enable vertical scrolling if content exceeds container height */
+      }
+
+      .modal {
+        position: fixed; /* Ensure the modal is positioned correctly */
+        z-index: 1500;
+      }
+
+      /* Modified styles */
+      .btn-host-event {
+            padding: 5px 10px; /* Adjust padding to reduce button size */
+            font-size: 14px; /* Adjust font size */
+            width: auto; /* Set width to auto or specify a specific width */
+        }
+      .event {
+        border: 1px solid #ccc; /* Border for event container */
+        border-radius: 8px; /* Rounded corners */
+        padding: 10px; /* Padding */
+        margin-bottom: 10px; /* Spacing between events */
+      }
+    </style>
+  </head>
+  <body>
+    <header>
+      <h1>SkillSwap Communities</h1>
+      <nav>
+        <ul>
+          <li><a href="{% url 'home' %}">Home</a></li>
+          <li><a href="{% url 'profile' %}">My profile</a></li>
+          <li><a href="{% url 'community_home' %}">Community</a></li>
+        </ul>
+      </nav>
+      <div class="user-info">
+        <p>Hello, {{ user.username }}</p>
+        <a href="{% url 'logout' %}" class="btn btn-primary" id="logout-link"
+          >Logout</a
+        >
+      </div>
+    </header>
+
+    <!-- Sidebar -->
+    <div class="container">
+      <div class="sidebar">
+        <ul>
+          <li><a href="{% url 'community_page' community_id=community.id %}">About</a></li>
+          <li><a href="#activities">Activities</a></li>
+          <li><a href="{% url 'resource_upload' community_id=community.id %}">Resources</a></li>
+          <li><a href="{% url 'community_chat' community_id=community.id %}">Forum</a></li>
+          <li><a href="{% url 'community_events' community_id=community.id %}">Community Events</a></li>
+          <li>
+            <a
+              href="{% url 'leave_community' community.id %}"
+              class="btn btn-danger"
+              >Leave Community</a
+            >
+          </li>
+        </ul>
+      </div>
+      <div class="main-content">
+        <!-- Main content here -->
+        <div class="card">
+          <h1>{{ community.name }} Events</h1>
+          {% if is_leader %}
+          <!-- Button to trigger the modal -->
+          <a href="{% url 'create_event' community_id=community.id %}" class="btn btn-primary btn-host-event">Host an Event</a>
+          {% else %}
+          <p>Only leaders can start an event.</p>
+          {% endif %}
+          {% if events %}
+          <h2>Events:</h2>
+          <div class="event-details">
+            {% for event in events %}
+            <div class="event">
+              <h3>{{ event.name }}</h3>
+              <p><strong>Date:</strong> {{ event.timestamp.date }}</p>
+              <p><strong>Time:</strong> {{ event.timestamp.time }}</p>
+              <p><strong>Description:</strong> {{ event.description }}</p>
+              <p><strong>Address:</strong> {{ event.address }}</p>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <p>No events found.</p>
+          {% endif %}
+        </div>
+      </div>
+
+      <script>
+        document.addEventListener("DOMContentLoaded", function () {
+          // Find the logout button by its ID
+          var logoutButton = document.getElementById("logout-link");
+
+          // Add a click event listener to the logout button
+          logoutButton.addEventListener("click", function () {
+            // Reload the page after a short delay
+            setTimeout(function () {
+              location.reload();
+            }, 1000); // Reload after 1 second (1000 milliseconds)
+          });
+        });
+        $(document).ready(function() {
+          $('#createEventModal').on('shown.bs.modal', function () {
+              $(this).find('form').trigger('reset');
+          });
+        });
+      </script>
+  </body>
+</html>
